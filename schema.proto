@@ -45,9 +45,9 @@ message OpParams {
     */
 
     // 待统计的字段, 不同的OP会有不同的含义
-    string src_field = 1;
+    optional string src_field = 1;
     // 带统计字段所属的 schema, 不同的OP会有不同的含义
-    string src_schema = 2;
+    optional string src_schema = 2;
     // 如果设置，那么当trigger_field不为空/0时进行计算
     optional string trigger_field = 4;
 
