@@ -22,9 +22,35 @@ enum FieldOp {
     Count = 7;
     // 平均值
     Avg = 8;
-    // 无重复的计数，需要执行额外的查询和去重，可以在 op_params 中指定去重统计的字段
-    // schema field , 将会按照 `select $field from $schema.$cur_obj where __ts__ between($cur_time, $cur_time+round_ts)` 来准备数据
+    // 无重复的计数，无额外设置时，以提供的值进行统计，如果设置了 op_params, 支持以提供的值从meta表中取数，其中
+    // op_params.src_field 为JSONB的查询路径
+    // op_params.src_schema 为meta表的表名
+    // op_params.trigger_field 如果设置，那么当trigger_field不为空/0时进行计算
     Distinct = 9;
+}
+
+
+message OpParams {
+    /*
+    // 待统计的字段
+    string src_field = 1;
+    // 带统计字段所属的 schema
+    string src_schema = 2;
+    // 是否以自身的值作为触发条件，即输入非空值才触发计算，默认自身值不为空才进行计算
+    optional bool self_trigger = 3;
+    // 是否同时以其他字段非空/0为触发条件
+    optional string other_trigger = 4;
+    // 是否为计算上一笔值，有些统计需要在本周期结束后才进行计算, 默认计算当前周期的值
+    optional bool previous = 5;
+    */
+
+    // 待统计的字段, 不同的OP会有不同的含义
+    string src_field = 1;
+    // 带统计字段所属的 schema, 不同的OP会有不同的含义
+    string src_schema = 2;
+    // 如果设置，那么当trigger_field不为空/0时进行计算
+    optional string trigger_field = 4;
+
 }
 
 
@@ -47,7 +73,7 @@ message Field {
     // 计算字段的表达式
     optional string expr = 6;
     // 对于有些统计方式，附带的参数，如 distinct, 可指明来源数据
-    optional string op_params = 7;
+    optional OpParams op_params = 7;
 }
 
 // 数据结构定义
