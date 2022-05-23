@@ -165,12 +165,16 @@ message UpdateDataFrameResponse{
 message UpdateMetaRequest {
     // 对于 json 是数组的场景, 指明每一项数据的id键名
     // 对于 json 是对象的场景, 如果是单条记录, 指明id键名, 如果是多条记录, 设置该值为空
+    // 对于 jsonb 场景，为其键值
     string idkey = 1;
     // 元数据存储的表名
     string table = 2;
     // 待更新的元数据, JSON 格式
     // 可以是 数组或对象
     string json = 3;
+    // 待更新的元数据，JSOB 格式，当JSONB有值时，优先使用JSONB
+    // JSONB总是为单条数据
+    optional bytes jsonb = 4;
 }
 
 // 元数据更新请求的返回
