@@ -39,6 +39,7 @@ message Series {
 message DataFrame {
     // pk is the sn of primary key of dataframe, default is the first columns, pk column should be sorted
     int32 pk_col = 1;
+    optional int32 distinct_col = 2;
     // columns is the dataframe datas
     repeated Series columns = 15;
 }

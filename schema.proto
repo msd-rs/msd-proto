@@ -92,6 +92,8 @@ message Schema {
     // 当某个主表更新后, 可能需要更新其他相关的衍生表, 这样的行为即是更新链
     // 合理设置更新链, 有助于减少交互次数, 提高整体性能
     repeated string chains = 5;
+    // 判重列，在 pk_col 递增的前提下，如果 distinct_col 的值相同，则保留最后一笔
+    optional int32 distinct_col = 6;
     // 扩展属性
     map<string, string> addons = 100;
 }
