@@ -250,6 +250,14 @@ message ListObjectResponse {
     map<string, dataframe.DataFrame> records = 4;
 }
 
+message BinlogRecord {
+    int64 ts = 1;
+    oneof anyRequest  {
+        UpdateMetaRequest Meta = 5;
+        UpdateDataFrameRequest DataFrame = 6;
+    }
+}
+
 
 // 数据服务
 service DataFrameService {
