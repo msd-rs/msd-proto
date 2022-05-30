@@ -258,6 +258,36 @@ message BinlogRecord {
     }
 }
 
+enum ForwardOp {
+    StartForward = 0;
+    StopForward = 1;
+    ListForwards = 2;
+}
+
+message ForwardRequest{
+    // 操作类型
+    ForwardOp operation = 1;
+    // 转发目标URL
+    string target = 2;
+    // 启动转发时可以设置的转发开始时间点
+    optional string startDate = 3;
+}
+
+message ForwardDetail {
+    int64 lastTs = 1;
+}
+
+message ForwardResponse {
+    // 返回码
+    int32 code    = 1;
+    // 返回码的代表的消息
+    string messge = 2;
+
+    // 对于 ListForwards, 返回当前的转发详情
+    map<string, ForwardDetail> forwards = 10;
+}
+
+
 
 // 数据服务
 service DataFrameService {
@@ -272,4 +302,6 @@ service DataFrameService {
     rpc GetTable(GetTableRequest) returns (GetTableResponse) {}
     // 更新元数据
     rpc UpdateMeta(UpdateMetaRequest) returns (UpdateMetaResponse) {}
+    // 转发相关的操作
+    rpc Forward(ForwardRequest) returns (ForwardResponse) {}
 }
