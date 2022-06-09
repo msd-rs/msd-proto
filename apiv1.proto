@@ -235,7 +235,7 @@ message ListObjectRequest {
     string dkind = 1;
     // 标的名的匹配过滤器
     Filter objFilter = 2;
-    // 额外的查询, 其中的 ${OBJ} 会被替换成标的，进行查询
+    // 额外的查询, 其中的 __OBJ__ 会被替换成标的，进行查询
     optional string sql = 3;
 }
 

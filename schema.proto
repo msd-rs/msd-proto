@@ -94,6 +94,8 @@ message Schema {
     repeated string chains = 5;
     // 判重列，在 pk_col 递增的前提下，如果 distinct_col 的值相同，则保留最后一笔
     optional int32 distinct_col = 6;
+    // 数据的生命周期, 以秒为单位, 为0表示永不过期
+    optional uint32 ttl = 7;
     // 扩展属性
     map<string, string> addons = 100;
 }
