@@ -26,6 +26,10 @@ message GetParams {
     int32 limit = 7;
     // 按时间取数方向
     bool ascending  = 8;
+    // 对元数据查询，可以在in参数指定一系列主键
+    repeated string ids = 9;
+    // 元数据的键值名称
+    string idname = 10;
 
 }
 
