@@ -30,6 +30,8 @@ message GetParams {
     repeated string ids = 9;
     // 元数据的键值名称
     string idname = 10;
+    // 额外的过滤条件， 从SQL解析而来
+    string addtional_where_ast = 11;
 
 }
 
