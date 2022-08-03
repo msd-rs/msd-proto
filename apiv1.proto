@@ -191,6 +191,8 @@ message UpdateMetaRequest {
     // 待更新的元数据，JSOB 格式，当JSONB有值时，优先使用JSONB
     // JSONB总是为单条数据
     bytes jsonb = 4;
+    // 可选的值键，如果有该值，以该值为键，取 json ，否则当成所有
+    optional string value_key = 5;
 }
 
 // 元数据更新请求的返回
