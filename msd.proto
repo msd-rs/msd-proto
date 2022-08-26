@@ -295,7 +295,29 @@ message ForwardResponse {
     map<string, ForwardDetail> forwards = 10;
 }
 
+// Sql 查询的请求
+message SqlRequest {
+    // 待执行的SQL
+    string sql = 1;
+    // 可选的 qid，将原样返回
+    optional string qid = 2;
+}
 
+// Sql 查询的回复
+message SqlResponse {
+    // 返回码
+    int32 code    = 1;
+    // 返回码的代表的消息
+    string messge = 2;
+    // 可选的 qid，将原样返回
+    optional string qid = 3;
+    // 相关的行数
+    int32 rows = 4;
+    // 返回的数据
+    dataframe.DataFrame values = 5;
+    // 返回的额外信息
+    map<string, string> addons = 100;
+}
 
 // 数据服务
 service ApiV1 {
@@ -312,4 +334,6 @@ service ApiV1 {
     rpc UpdateMeta(UpdateMetaRequest) returns (UpdateMetaResponse) {}
     // 转发相关的操作
     rpc Forward(ForwardRequest) returns (ForwardResponse) {}
+    // 执行SQL
+    rpc SqlQuery(SqlRequest) returns (SqlResponse) {}
 }
